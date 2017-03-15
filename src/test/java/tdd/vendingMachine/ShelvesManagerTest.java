@@ -34,7 +34,7 @@ public class ShelvesManagerTest {
 
         List<Item> snacks = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            cokes.add(Item.SNACK);
+            snacks.add(Item.SNACK);
         }
         shelves.add(new Shelf(snacks, 10));
 
@@ -46,13 +46,6 @@ public class ShelvesManagerTest {
         BigDecimal itemPrice = shelvesManager.getItemPrice(1);
 
         assertThat(itemPrice).isEqualTo(COKE_025.getPrice());
-    }
-
-    @Test
-    public void shelves_manager_should_return_correct_price_for_second_shelf() {
-        BigDecimal itemPrice = shelvesManager.getItemPrice(2);
-
-        assertThat(itemPrice).isEqualTo(PEANUTS.getPrice());
     }
 
     @Test

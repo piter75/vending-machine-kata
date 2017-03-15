@@ -1,6 +1,7 @@
 package tdd.vendingMachine;
 
 import tdd.vendingMachine.dto.Item;
+import tdd.vendingMachine.exceptions.ShelfIsEmptyException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,9 +15,17 @@ class Shelf {
     Shelf(List<Item> items, Integer maxItems) {
         this.items = new ArrayList<>(items);
         this.maxItems = maxItems;
+
+        if (!this.items.isEmpty()) {
+            this.price = this.items.get(0).getPrice();
+        }
     }
 
     BigDecimal getPrice() {
-        return null;
+        if (items.isEmpty()) {
+            throw new ShelfIsEmptyException();
+        }
+
+        return price;
     }
 }

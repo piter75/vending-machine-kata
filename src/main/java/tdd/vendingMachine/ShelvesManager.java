@@ -1,5 +1,7 @@
 package tdd.vendingMachine;
 
+import tdd.vendingMachine.exceptions.WrongShelfSelectedException;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +12,21 @@ class ShelvesManager {
 
     ShelvesManager(List<Shelf> shelves) {
         shelvesMap = new HashMap<>();
+
+        for (int i = 0; i < shelves.size(); i++) {
+            shelvesMap.put(i + 1, shelves.get(i));
+        }
     }
 
     BigDecimal getItemPrice(Integer shelfNumber) {
-        return null;
+        checkShelfNumber(shelfNumber);
+
+        return shelvesMap.get(shelfNumber).getPrice();
     }
 
+
+    private void checkShelfNumber(Integer shelfNumber) {
+        if (!shelvesMap.containsKey(shelfNumber))
+            throw new WrongShelfSelectedException();
+    }
 }
