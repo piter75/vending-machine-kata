@@ -4,6 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
+import static tdd.vendingMachine.dto.Item.COKE_025;
+import static tdd.vendingMachine.dto.Message.WRONG_SHELF_SELECTED;
+
 public class VendingMachineDisplayTest {
     private VendingMachineForUser vendingMachine;
 
@@ -24,7 +27,7 @@ public class VendingMachineDisplayTest {
         vendingMachine.pickShelf(1);
         String displayedText = vendingMachine.readDisplay();
 
-        Assertions.assertThat(displayedText).isEqualTo("2.50");
+        Assertions.assertThat(displayedText).isEqualTo(COKE_025.getPriceAsString());
     }
 
     @Test
@@ -32,7 +35,7 @@ public class VendingMachineDisplayTest {
         vendingMachine.pickShelf(500);
         String displayedText = vendingMachine.readDisplay();
 
-        Assertions.assertThat(displayedText).isEqualTo("Wrong shelf number");
+        Assertions.assertThat(displayedText).isEqualTo(WRONG_SHELF_SELECTED.getValue());
     }
 
     @Test
@@ -40,7 +43,7 @@ public class VendingMachineDisplayTest {
         vendingMachine.pickShelf(-1);
         String displayedText = vendingMachine.readDisplay();
 
-        Assertions.assertThat(displayedText).isEqualTo("Wrong shelf number");
+        Assertions.assertThat(displayedText).isEqualTo(WRONG_SHELF_SELECTED.getValue());
     }
 
 }
