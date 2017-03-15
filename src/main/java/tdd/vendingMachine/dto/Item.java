@@ -22,4 +22,8 @@ public enum Item {
     public BigDecimal getPrice() {
         return price;
     }
+
+    public String getPriceAsString() {
+        return price.toString();
+    }
 }

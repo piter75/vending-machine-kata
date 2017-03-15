@@ -13,6 +13,13 @@ public class VendingMachineDisplayTest {
     }
 
     @Test
+    public void machine_should_not_display_anything_when_no_shelf_selected() {
+        String displayedText = vendingMachine.readDisplay();
+
+        Assertions.assertThat(displayedText).isEqualTo("");
+    }
+
+    @Test
     public void machine_should_display_correct_price_for_correct_shelf_number() {
         vendingMachine.pickShelf(1);
         String displayedText = vendingMachine.readDisplay();
@@ -30,7 +37,7 @@ public class VendingMachineDisplayTest {
 
     @Test
     public void machine_should_display_error_message_for_negative_shelf_number() {
-        vendingMachine.pickShelf(500);
+        vendingMachine.pickShelf(-1);
         String displayedText = vendingMachine.readDisplay();
 
         Assertions.assertThat(displayedText).isEqualTo("Wrong shelf number");
