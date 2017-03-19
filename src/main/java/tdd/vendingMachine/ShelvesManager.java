@@ -31,6 +31,9 @@ class ShelvesManager {
         return shelvesMap.get(shelfNumber).getItem();
     }
 
+    void putItemsOnShelf(Integer shelfNumber, List<Item> items) {
+    }
+
     private void checkShelfNumber(Integer shelfNumber) {
         if (!shelvesMap.containsKey(shelfNumber))
             throw new WrongShelfSelectedException();

@@ -12,7 +12,7 @@ import java.util.List;
 import static tdd.vendingMachine.dto.Message.NO_MONEY_FOR_THE_CHANGE;
 import static tdd.vendingMachine.dto.Message.NO_SHELF_SELECTED;
 
-public class VendingMachine implements VendingMachineForUser {
+public class VendingMachine implements VendingMachineForUser, VendingMachineForMaintenance {
     private String display = "";
     private final CoinsManager coinsManager;
     private final ShelvesManager shelvesManager;
@@ -70,8 +70,8 @@ public class VendingMachine implements VendingMachineForUser {
             itemDispenser.add(shelvesManager.getItem(selectedShelf));
             selectedShelf = null;
             outstandingAmount = null;
-            orderCoins.clear();
             coinDispenser.addAll(change);
+            orderCoins.clear();
         } catch (NoMoneyForTheChange e) {
             display = "";
             selectedShelf = null;
@@ -108,4 +108,19 @@ public class VendingMachine implements VendingMachineForUser {
         return items;
     }
 
+    @Override
+    public List<Coin> getCoins(Coin coin, Integer number) {
+        return null;
+    }
+
+    @Override
+    public void putCoins(List<Coin> coins) {
+    }
+
+    @Override
+    public void putItems(Integer shelfNumber, List<Item> items) {
+    }
+
+    private void checkIfOrderInProgress() {
+    }
 }

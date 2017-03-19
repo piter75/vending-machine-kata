@@ -20,6 +20,10 @@ class CoinsManager {
         );
     }
 
+    List<Coin> getCoins(Coin coin, Integer number) {
+        return null;
+    }
+
     void putCoins(List<Coin> coins) {
         for (Coin coin: coins) {
             addCoin(coin);

@@ -36,4 +36,8 @@ class Shelf {
 
         return items.remove(items.size() - 1);
     }
+
+    void putItems(List<Item> items) {
+    }
+
 }
