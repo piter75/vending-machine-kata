@@ -16,7 +16,10 @@ public class VendingMachineDisplayTest {
         ShelvesManager shelvesManager = shelvesManagerBuilder
             .addShelf(10, COKE_025, 10)
             .build();
-        vendingMachine = new VendingMachine(shelvesManager);
+        CoinsManagerBuilder coinsManagerBuilder = new CoinsManagerBuilder();
+        CoinsManager coinsManager = coinsManagerBuilder.build();
+
+        vendingMachine = new VendingMachine(coinsManager, shelvesManager);
     }
 
     @Test

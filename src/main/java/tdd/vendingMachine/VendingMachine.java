@@ -4,9 +4,11 @@ import tdd.vendingMachine.exceptions.WrongShelfSelectedException;
 
 public class VendingMachine implements VendingMachineForUser {
     private String display = "";
+    private final CoinsManager coinsManager;
     private final ShelvesManager shelvesManager;
 
-    public VendingMachine(ShelvesManager shelvesManager) {
+    public VendingMachine(CoinsManager coinsManager, ShelvesManager shelvesManager) {
+        this.coinsManager = coinsManager;
         this.shelvesManager = shelvesManager;
     }
 

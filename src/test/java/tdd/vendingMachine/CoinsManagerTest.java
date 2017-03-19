@@ -38,8 +38,22 @@ public class CoinsManagerTest {
     }
 
     @Test
+    public void non_empty_coins_manager_should_return_correct_change_amount() {
+        CoinsManagerBuilder coinsManagerBuilder = new CoinsManagerBuilder();
+        coinsManager = coinsManagerBuilder
+            .addCoins(TWO, 2)
+            .addCoins(ONE, 2)
+            .build();
+
+        List<Coin> change = coinsManager.getChange(new BigDecimal("5.0"));
+
+        assertThat(change).contains(TWO, TWO, ONE);
+    }
+
+    @Test
     public void coins_manager_should_return_correct_change_amount() {
         coinsManager.putCoins(Arrays.asList(TWO, TWO, ONE, ONE));
+
         List<Coin> change = coinsManager.getChange(new BigDecimal("5.0"));
 
         assertThat(change).containsExactly(TWO, TWO, ONE);
@@ -48,6 +62,7 @@ public class CoinsManagerTest {
     @Test
     public void coins_manager_should_return_correct_change_amount_with_lower_denominations() {
         coinsManager.putCoins(Arrays.asList(TWO, ONE, ONE, HALVE, FIFTH, FIFTH, TENTH, TENTH));
+
         List<Coin> change = coinsManager.getChange(new BigDecimal("5.0"));
 
         assertThat(change).containsExactly(TWO, ONE, ONE, HALVE, FIFTH, FIFTH, TENTH);
@@ -56,6 +71,7 @@ public class CoinsManagerTest {
     @Test
     public void coins_manager_should_throw_correct_exception_when_it_has_not_enough_coins_for_the_change() {
         coinsManager.putCoins(Arrays.asList(TWO, ONE));
+
         Throwable thrown = catchThrowable(() -> coinsManager.getChange(new BigDecimal("5.0")));
 
         assertThat(thrown).isExactlyInstanceOf(NoMoneyForTheChange.class);
