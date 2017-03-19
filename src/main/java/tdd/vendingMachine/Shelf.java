@@ -2,6 +2,8 @@ package tdd.vendingMachine;
 
 import tdd.vendingMachine.dto.Item;
 import tdd.vendingMachine.exceptions.ShelfIsEmptyException;
+import tdd.vendingMachine.exceptions.ShelfIsNotEmptyException;
+import tdd.vendingMachine.exceptions.TooManyItemsOnShelfException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,6 +40,20 @@ class Shelf {
     }
 
     void putItems(List<Item> items) {
+        if (items.isEmpty())
+            return;
+
+        if (this.items.isEmpty() || this.items.get(0) == items.get(0)) {
+            if (this.items.size() + items.size() > maxItems) {
+                throw new TooManyItemsOnShelfException();
+            }
+
+            this.items.addAll(items);
+            this.price = this.items.get(0).getPrice();
+        } else {
+            throw new ShelfIsNotEmptyException();
+        }
+
     }
 
 }

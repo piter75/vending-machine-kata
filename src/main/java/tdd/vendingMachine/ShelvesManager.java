@@ -32,6 +32,8 @@ class ShelvesManager {
     }
 
     void putItemsOnShelf(Integer shelfNumber, List<Item> items) {
+        checkShelfNumber(shelfNumber);
+        shelvesMap.get(shelfNumber).putItems(items);
     }
 
     private void checkShelfNumber(Integer shelfNumber) {

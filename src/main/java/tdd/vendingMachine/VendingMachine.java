@@ -3,6 +3,7 @@ package tdd.vendingMachine;
 import tdd.vendingMachine.dto.Coin;
 import tdd.vendingMachine.dto.Item;
 import tdd.vendingMachine.exceptions.NoMoneyForTheChange;
+import tdd.vendingMachine.exceptions.OrderInProgressException;
 import tdd.vendingMachine.exceptions.WrongShelfSelectedException;
 
 import java.math.BigDecimal;
@@ -110,17 +111,25 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
 
     @Override
     public List<Coin> getCoins(Coin coin, Integer number) {
-        return null;
+        checkIfOrderInProgress();
+        return coinsManager.getCoins(coin, number);
     }
 
     @Override
     public void putCoins(List<Coin> coins) {
+        checkIfOrderInProgress();
+        coinsManager.putCoins(coins);
     }
 
     @Override
     public void putItems(Integer shelfNumber, List<Item> items) {
+        checkIfOrderInProgress();
+        shelvesManager.putItemsOnShelf(shelfNumber, items);
     }
 
     private void checkIfOrderInProgress() {
+        if (selectedShelf != null) {
+            throw new OrderInProgressException();
+        }
     }
 }

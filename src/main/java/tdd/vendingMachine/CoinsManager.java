@@ -21,7 +21,17 @@ class CoinsManager {
     }
 
     List<Coin> getCoins(Coin coin, Integer number) {
-        return null;
+        if (coins.get(coin) < number) {
+            throw new NoMoneyForTheChange();
+        }
+
+        coins.put(coin, coins.get(coin) - number);
+
+        List<Coin> result = new ArrayList<>(number);
+        for (int i = 0; i < number; i++) {
+            result.add(coin);
+        }
+        return result;
     }
 
     void putCoins(List<Coin> coins) {
