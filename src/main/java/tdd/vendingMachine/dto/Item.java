@@ -15,10 +15,6 @@ public enum Item {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
