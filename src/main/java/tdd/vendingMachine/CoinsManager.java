@@ -4,10 +4,7 @@ import tdd.vendingMachine.dto.Coin;
 import tdd.vendingMachine.exceptions.NoMoneyForTheChange;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class CoinsManager {
     private final Map<Coin, Integer> coins;
@@ -25,40 +22,48 @@ class CoinsManager {
 
     void putCoins(List<Coin> coins) {
         for (Coin coin: coins) {
-            this.coins.put(coin, this.coins.get(coin) + 1);
+            addCoin(coin);
         }
     }
 
     List<Coin> getChange(BigDecimal value) {
-        BigDecimal remainingValue = value;
         List<Coin> change = new ArrayList<>();
 
-        for (Coin coin: Coin.values()) {
-            if (coins.getOrDefault(coin, 0) == 0)
-                continue;
+        BigDecimal remainingValue = processChange(value, change);
+
+        if (remainingValue.compareTo(BigDecimal.ZERO) > 0) {
+            putCoins(change);
+            throw new NoMoneyForTheChange();
+        }
+
+        return change;
+    }
+
+    private BigDecimal processChange(BigDecimal value, List<Coin> change) {
+        BigDecimal remainingValue = value;
+        Iterator<Coin> coinIterator = Arrays.asList(Coin.values()).iterator();
+
+        while (remainingValue.compareTo(BigDecimal.ZERO) > 0 && coinIterator.hasNext()) {
+            Coin coin = coinIterator.next();
 
             int coinsPossible = remainingValue.divideToIntegralValue(coin.getDenomination()).intValue();
             int coinsAvailable = Math.min(coinsPossible, coins.get(coin));
 
             for (int i = 0; i < coinsAvailable; i++) {
-                if (coins.get(coin) > 0) {
-                    coins.put(coin, coins.get(coin) - 1);
-                    change.add(coin);
-                    remainingValue = remainingValue.subtract(coin.getDenomination());
-                }
+                removeCoin(coin);
+                change.add(coin);
+                remainingValue = remainingValue.subtract(coin.getDenomination());
             }
-
-            if (remainingValue.compareTo(BigDecimal.ZERO) == 0)
-                break;
         }
 
-        if (remainingValue.compareTo(BigDecimal.ZERO) != 0) {
-            for (Coin coin: change) {
-                coins.put(coin, coins.get(coin) + 1);
-            }
-            throw new NoMoneyForTheChange();
-        }
+        return remainingValue;
+    }
 
-        return change;
+    private void addCoin(Coin coin) {
+        coins.put(coin, coins.get(coin) + 1);
+    }
+
+    private void removeCoin(Coin coin) {
+        coins.put(coin, coins.get(coin) - 1);
     }
 }
