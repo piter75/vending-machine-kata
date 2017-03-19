@@ -21,24 +21,12 @@ public class ShelvesManagerTest {
 
     @Before
     public void setup() {
-        List<Shelf> shelves = new ArrayList<>();
-
-        List<Item> cokes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            cokes.add(COKE_025);
-        }
-        shelves.add(new Shelf(cokes, 10));
-
-        List<Item> peanuts = new ArrayList<>();
-        shelves.add(new Shelf(peanuts, 10));
-
-        List<Item> snacks = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            snacks.add(Item.SNACK);
-        }
-        shelves.add(new Shelf(snacks, 10));
-
-        shelvesManager = new ShelvesManager(shelves);
+        ShelvesManagerBuilder shelvesManagerBuilder = new ShelvesManagerBuilder();
+        shelvesManagerBuilder
+            .addShelf(10, COKE_025, 10)
+            .addShelf(10, PEANUTS, 0)
+            .addShelf(10, SNACK, 10);
+        shelvesManager = shelvesManagerBuilder.build();
     }
 
     @Test

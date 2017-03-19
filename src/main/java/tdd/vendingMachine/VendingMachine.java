@@ -1,17 +1,13 @@
 package tdd.vendingMachine;
 
-import tdd.vendingMachine.dto.Item;
-
-import java.util.HashMap;
-import java.util.Map;
+import tdd.vendingMachine.exceptions.WrongShelfSelectedException;
 
 public class VendingMachine implements VendingMachineForUser {
     private String display = "";
-    private final Map<Integer, Item> shelves = new HashMap<>();
+    private final ShelvesManager shelvesManager;
 
-
-    public VendingMachine() {
-        shelves.put(1, Item.COKE_025);
+    public VendingMachine(ShelvesManager shelvesManager) {
+        this.shelvesManager = shelvesManager;
     }
 
     @Override
@@ -21,12 +17,11 @@ public class VendingMachine implements VendingMachineForUser {
 
     @Override
     public void pickShelf(int shelfNumber) {
-        if (!shelves.containsKey(shelfNumber)) {
+        try {
+            display = shelvesManager.getItemPrice(shelfNumber).toString();
+        } catch (WrongShelfSelectedException e) {
             display = "Wrong shelf number";
-            return;
         }
-
-        display = shelves.get(shelfNumber).getPriceAsString();
     }
 
 }

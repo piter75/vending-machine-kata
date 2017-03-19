@@ -12,7 +12,11 @@ public class VendingMachineDisplayTest {
 
     @Before
     public void setup() {
-        vendingMachine = new VendingMachine();
+        ShelvesManagerBuilder shelvesManagerBuilder = new ShelvesManagerBuilder();
+        ShelvesManager shelvesManager = shelvesManagerBuilder
+            .addShelf(10, COKE_025, 10)
+            .build();
+        vendingMachine = new VendingMachine(shelvesManager);
     }
 
     @Test
