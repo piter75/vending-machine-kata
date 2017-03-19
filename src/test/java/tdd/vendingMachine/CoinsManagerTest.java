@@ -24,7 +24,7 @@ public class CoinsManagerTest {
     }
 
     @Test
-    public void empty_coins_manager_should_throw_correct_exception_when_asked_for_non_change() {
+    public void empty_coins_manager_should_throw_correct_exception_when_asked_for_nonzero_change() {
         Throwable thrown = catchThrowable(() -> coinsManager.getChange(new BigDecimal("2.0")));
 
         assertThat(thrown).isExactlyInstanceOf(NoMoneyForTheChange.class);
