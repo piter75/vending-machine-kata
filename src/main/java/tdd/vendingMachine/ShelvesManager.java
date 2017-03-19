@@ -1,5 +1,6 @@
 package tdd.vendingMachine;
 
+import tdd.vendingMachine.dto.Item;
 import tdd.vendingMachine.exceptions.WrongShelfSelectedException;
 
 import java.math.BigDecimal;
@@ -24,6 +25,11 @@ class ShelvesManager {
         return shelvesMap.get(shelfNumber).getPrice();
     }
 
+    Item getItem(Integer shelfNumber) {
+        checkShelfNumber(shelfNumber);
+
+        return shelvesMap.get(shelfNumber).getItem();
+    }
 
     private void checkShelfNumber(Integer shelfNumber) {
         if (!shelvesMap.containsKey(shelfNumber))

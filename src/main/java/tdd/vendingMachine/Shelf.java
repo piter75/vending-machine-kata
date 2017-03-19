@@ -28,4 +28,12 @@ class Shelf {
 
         return price;
     }
+
+    Item getItem() {
+        if (items.isEmpty()) {
+            throw new ShelfIsEmptyException();
+        }
+
+        return items.remove(items.size() - 1);
+    }
 }

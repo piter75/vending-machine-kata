@@ -44,23 +44,59 @@ public class ShelvesManagerTest {
     }
 
     @Test
-    public void shelves_manager_should_throw_correct_exception_for_nonexistent_shelf() {
+    public void shelves_manager_should_throw_correct_exception_for_price_from_nonexistent_shelf() {
         Throwable thrown = catchThrowable(() -> shelvesManager.getItemPrice(4));
 
         assertThat(thrown).isExactlyInstanceOf(WrongShelfSelectedException.class);
     }
 
     @Test
-    public void shelves_manager_should_throw_correct_exception_for_negative_shelf_number() {
+    public void shelves_manager_should_throw_correct_exception_for_price_from_negative_shelf_number() {
         Throwable thrown = catchThrowable(() -> shelvesManager.getItemPrice(-1));
 
         assertThat(thrown).isExactlyInstanceOf(WrongShelfSelectedException.class);
     }
 
     @Test
-    public void shelves_manager_should_pass_correct_exception_for_empty_shelf_selection() {
+    public void shelves_manager_should_pass_correct_exception_for_price_from_empty_shelf() {
         Throwable thrown = catchThrowable(() -> shelvesManager.getItemPrice(2));
 
         assertThat(thrown).isExactlyInstanceOf(ShelfIsEmptyException.class);
     }
+
+    @Test
+    public void shelves_manager_should_return_correct_item_for_first_shelf() {
+        Item item = shelvesManager.getItem(1);
+
+        assertThat(item).isEqualTo(COKE_025);
+    }
+
+    @Test
+    public void shelves_manager_should_return_correct_item_for_third_shelf() {
+        Item item = shelvesManager.getItem(3);
+
+        assertThat(item).isEqualTo(SNACK);
+    }
+
+    @Test
+    public void shelves_manager_should_throw_correct_exception_for_item_from_nonexistent_shelf() {
+        Throwable thrown = catchThrowable(() -> shelvesManager.getItem(4));
+
+        assertThat(thrown).isExactlyInstanceOf(WrongShelfSelectedException.class);
+    }
+
+    @Test
+    public void shelves_manager_should_throw_correct_exception_for_item_from_negative_shelf_number() {
+        Throwable thrown = catchThrowable(() -> shelvesManager.getItem(-1));
+
+        assertThat(thrown).isExactlyInstanceOf(WrongShelfSelectedException.class);
+    }
+
+    @Test
+    public void shelves_manager_should_pass_correct_exception_for_item_from_empty_shelf_selection() {
+        Throwable thrown = catchThrowable(() -> shelvesManager.getItem(2));
+
+        assertThat(thrown).isExactlyInstanceOf(ShelfIsEmptyException.class);
+    }
+
 }
