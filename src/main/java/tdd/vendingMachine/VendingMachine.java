@@ -1,6 +1,10 @@
 package tdd.vendingMachine;
 
+import tdd.vendingMachine.dto.Coin;
+import tdd.vendingMachine.dto.Item;
 import tdd.vendingMachine.exceptions.WrongShelfSelectedException;
+
+import java.util.List;
 
 public class VendingMachine implements VendingMachineForUser {
     private String display = "";
@@ -24,6 +28,24 @@ public class VendingMachine implements VendingMachineForUser {
         } catch (WrongShelfSelectedException e) {
             display = "Wrong shelf number";
         }
+    }
+
+    @Override
+    public void putCoin(Coin coin) {
+    }
+
+    @Override
+    public void cancelOrder() {
+    }
+
+    @Override
+    public List<Coin> getCoins() {
+        return null;
+    }
+
+    @Override
+    public List<Item> getItems() {
+        return null;
     }
 
 }
