@@ -14,7 +14,7 @@ import static tdd.vendingMachine.dto.Message.NO_MONEY_FOR_THE_CHANGE;
 import static tdd.vendingMachine.dto.Message.NO_SHELF_SELECTED;
 import static tdd.vendingMachine.dto.Message.WRONG_SHELF_SELECTED;
 
-public class VendingMachine implements VendingMachineForUser, VendingMachineForMaintenance {
+class VendingMachine implements VendingMachineForUser, VendingMachineForMaintenance {
     private final Display display;
     private final CoinsManager coinsManager;
     private final ShelvesManager shelvesManager;
@@ -25,7 +25,7 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
     private final List<Coin> coinDispenser = new ArrayList<>();
     private final List<Item> itemDispenser = new ArrayList<>();
 
-    public VendingMachine(Display display, CoinsManager coinsManager, ShelvesManager shelvesManager) {
+    VendingMachine(Display display, CoinsManager coinsManager, ShelvesManager shelvesManager) {
         this.display = display;
         this.coinsManager = coinsManager;
         this.shelvesManager = shelvesManager;
