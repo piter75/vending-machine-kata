@@ -69,28 +69,26 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
             display = outstandingAmount.toString();
             coinsManager.putCoins(orderCoins);
             itemDispenser.add(shelvesManager.getItem(selectedShelf));
-            selectedShelf = null;
-            outstandingAmount = null;
-            coinDispenser.addAll(change);
-            orderCoins.clear();
+            cleanupOrderState(change);
         } catch (NoMoneyForTheChange e) {
             display = "";
-            selectedShelf = null;
-            outstandingAmount = null;
-            coinDispenser.addAll(orderCoins);
-            orderCoins.clear();
+            cleanupOrderState(orderCoins);
             display = NO_MONEY_FOR_THE_CHANGE.getValue();
         }
 
     }
 
+    private void cleanupOrderState(List<Coin> coinsToDispense) {
+        selectedShelf = null;
+        outstandingAmount = null;
+        coinDispenser.addAll(coinsToDispense);
+        orderCoins.clear();
+    }
+
     @Override
     public void cancelOrder() {
         display = "";
-        selectedShelf = null;
-        outstandingAmount = null;
-        coinDispenser.addAll(orderCoins);
-        orderCoins.clear();
+        cleanupOrderState(orderCoins);
     }
 
     @Override
