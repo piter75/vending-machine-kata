@@ -12,9 +12,10 @@ import java.util.List;
 
 import static tdd.vendingMachine.dto.Message.NO_MONEY_FOR_THE_CHANGE;
 import static tdd.vendingMachine.dto.Message.NO_SHELF_SELECTED;
+import static tdd.vendingMachine.dto.Message.WRONG_SHELF_SELECTED;
 
 public class VendingMachine implements VendingMachineForUser, VendingMachineForMaintenance {
-    private String display = "";
+    private final Display display;
     private final CoinsManager coinsManager;
     private final ShelvesManager shelvesManager;
 
@@ -24,14 +25,15 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
     private final List<Coin> coinDispenser = new ArrayList<>();
     private final List<Item> itemDispenser = new ArrayList<>();
 
-    public VendingMachine(CoinsManager coinsManager, ShelvesManager shelvesManager) {
+    public VendingMachine(Display display, CoinsManager coinsManager, ShelvesManager shelvesManager) {
+        this.display = display;
         this.coinsManager = coinsManager;
         this.shelvesManager = shelvesManager;
     }
 
     @Override
     public String readDisplay() {
-        return display;
+        return display.read();
     }
 
     @Override
@@ -39,16 +41,16 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
         try {
             selectedShelf = shelfNumber;
             outstandingAmount = shelvesManager.getItemPrice(shelfNumber);
-            display = outstandingAmount.toString();
+            display.show(outstandingAmount);
         } catch (WrongShelfSelectedException e) {
-            display = "Wrong shelf number";
+            display.show(WRONG_SHELF_SELECTED);
         }
     }
 
     @Override
     public void putCoin(Coin coin) {
         if (selectedShelf == null) {
-            display = NO_SHELF_SELECTED.getValue();
+            display.show(NO_SHELF_SELECTED);
             coinDispenser.add(coin);
             return;
         }
@@ -56,7 +58,7 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
         orderCoins.add(coin);
         outstandingAmount = outstandingAmount.subtract(coin.getDenomination());
         if (outstandingAmount.compareTo(BigDecimal.ZERO) > 0) {
-            display = outstandingAmount.toString();
+            display.show(outstandingAmount);
         } else {
             processOrder();
         }
@@ -66,14 +68,13 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
     private void processOrder() {
         try {
             List<Coin> change = coinsManager.getChange(outstandingAmount.negate());
-            display = outstandingAmount.toString();
+            display.show(outstandingAmount);
             coinsManager.putCoins(orderCoins);
             itemDispenser.add(shelvesManager.getItem(selectedShelf));
             cleanupOrderState(change);
         } catch (NoMoneyForTheChange e) {
-            display = "";
+            display.show(NO_MONEY_FOR_THE_CHANGE);
             cleanupOrderState(orderCoins);
-            display = NO_MONEY_FOR_THE_CHANGE.getValue();
         }
 
     }
@@ -87,7 +88,7 @@ public class VendingMachine implements VendingMachineForUser, VendingMachineForM
 
     @Override
     public void cancelOrder() {
-        display = "";
+        display.clear();
         cleanupOrderState(orderCoins);
     }
 

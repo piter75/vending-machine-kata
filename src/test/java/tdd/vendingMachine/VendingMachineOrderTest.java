@@ -14,6 +14,8 @@ public class VendingMachineOrderTest {
 
     @Before
     public void setup() {
+        Display display = new Display();
+
         CoinsManager coinsManager = new CoinsManagerBuilder()
             .addCoins(Coin.TWO, 2)
             .addCoins(Coin.ONE, 2)
@@ -25,7 +27,7 @@ public class VendingMachineOrderTest {
             .addShelf(10, Item.SNACK, 10)
             .build();
 
-        vendingMachine = new VendingMachine(coinsManager, shelvesManager);
+        vendingMachine = new VendingMachine(display, coinsManager, shelvesManager);
     }
 
     @Test

@@ -23,6 +23,8 @@ public class VendingMachineMaintenaceTest {
 
     @Before
     public void setUp() {
+        Display display = new Display();
+
         CoinsManager coinsManager = new CoinsManagerBuilder()
             .addCoins(Coin.TWO, 2)
             .addCoins(Coin.ONE, 2)
@@ -35,7 +37,7 @@ public class VendingMachineMaintenaceTest {
             .addShelf(10, SNACK, 10)
             .build();
 
-        VendingMachine vendingMachine = new VendingMachine(coinsManager, shelvesManager);
+        VendingMachine vendingMachine = new VendingMachine(display, coinsManager, shelvesManager);
         vendingMachineForUser = vendingMachine;
         vendingMachineForMaintenance = vendingMachine;
     }
