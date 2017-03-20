@@ -10,7 +10,7 @@ import static tdd.vendingMachine.dto.Message.NO_MONEY_FOR_THE_CHANGE;
 import static tdd.vendingMachine.dto.Message.NO_SHELF_SELECTED;
 
 public class VendingMachineOrderTest {
-    private VendingMachine vendingMachine;
+    private VendingMachineForUser vendingMachine;
 
     @Before
     public void setup() {
