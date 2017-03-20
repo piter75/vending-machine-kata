@@ -12,7 +12,7 @@ class Display {
     }
 
     void clear() {
-        contents = "";
+        show("");
     }
 
     void show(String message) {
