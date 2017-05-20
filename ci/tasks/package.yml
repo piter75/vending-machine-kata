@@ -11,8 +11,8 @@ inputs:
 
 run:
   path: "./mvnw"
-  args: ["versions:set",-DnewVersion=$(cat VERSION), "-DgenerateBackupPoms=false","test","package"]
+  args: ["versions:set",-DnewVersion=$PACKAGE_VERSION, "-DgenerateBackupPoms=false","test","package"]
   dir: vending-kata
 
-  #params:
-        #  MAVEN_BASEDIR: vending-kata
+params:
+  PACKAGE_VERSION: $(cat VERSION)
