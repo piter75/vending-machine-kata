@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
-group = 'pl.dtv.test'
+group = 'pragmatists.recruitment'
 //name = 'vending-machine-kata'
 
 
