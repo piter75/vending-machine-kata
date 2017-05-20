@@ -1,0 +1,14 @@
+resources:
+  - name: vending-kata
+    type: git
+    source:
+      uri: https://github.com/piter75/vending-machine-kata.git
+      branch: master
+
+jobs:
+  - name: package
+    plan:
+    - get: vending-kata
+      trigger: true
+    - task: package
+      file: vending-kata/ci/tasks/package.yml
