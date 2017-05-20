@@ -9,7 +9,7 @@ resources:
     type: semver
     source:
       driver: git
-      uri: https://github.com/piter75/vending-machine-kata.git
+      uri: git@github.com:piter75/vending-machine-kata.git
       branch: master
       file: VERSION
       private_key: {{github-private-key}}
@@ -21,6 +21,7 @@ jobs:
     serial: true
     plan:
     - get: vending-kata
+      trigger: true
     - put: version-git
       params: {bump: patch}
  
@@ -29,7 +30,6 @@ jobs:
     - aggregate:
       - get: version-git
       - get: vending-kata
-        trigger: true
         passed: [version]
     - task: package
       file: vending-kata/ci/tasks/package.yml
