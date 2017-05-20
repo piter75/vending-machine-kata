@@ -10,7 +10,7 @@ inputs:
   - name: vending-kata
 
 run:
-  path: "vending-kata/mvnw"
+  path: "mvn"
   args: ["-f","vending-kata/pom.xml","package"]
 
 params:
