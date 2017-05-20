@@ -4,6 +4,7 @@ resources:
     source:
       uri: https://github.com/piter75/vending-machine-kata.git
       branch: master
+      ignore_paths: [VERSION]
 
   - name: version-git
     type: semver
@@ -29,6 +30,7 @@ jobs:
     plan:
     - aggregate:
       - get: version-git
+        trigger: true
       - get: vending-kata
         passed: [version]
     - task: package
