@@ -1,0 +1,36 @@
+plugins {
+    id 'pl.allegro.tech.build.axion-release' version '1.6.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = 'pl.dtv.test'
+//name = 'vending-machine-kata'
+
+
+scmVersion {
+    tag {
+        prefix = 'vending-machine-kata'
+    }
+}
+
+project.version = scmVersion.version
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.2.0'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+	    from components.java
+	}
+    }
+}
