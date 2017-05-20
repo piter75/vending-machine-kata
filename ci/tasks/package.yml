@@ -10,8 +10,8 @@ inputs:
   - name: vending-kata
 
 run:
-  path: "mvn"
-  args: ["-f","vending-kata/pom.xml","test","package"]
+  path: "vending-kata/mvn"
+  args: ["test","package"]
 
 params:
   MAVEN_BASEDIR: vending-kata
