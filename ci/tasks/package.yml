@@ -11,7 +11,7 @@ inputs:
 
 run:
   path: "./mvnw"
-  args: ["versions:set","-DnewVersion=$(cat VERSION)", "-DgenerateBackupPoms=false","test","package"]
+  args: ["versions:set",-DnewVersion=$(cat VERSION), "-DgenerateBackupPoms=false","test","package"]
   dir: vending-kata
 
   #params:
