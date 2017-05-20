@@ -10,8 +10,9 @@ inputs:
   - name: vending-kata
 
 run:
-  path: "vending-kata/mvnw"
+  path: "mvnw"
   args: ["test","package"]
+  dir: vending-kata
 
-params:
-  MAVEN_BASEDIR: vending-kata
+  #params:
+        #  MAVEN_BASEDIR: vending-kata
