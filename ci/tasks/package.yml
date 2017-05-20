@@ -10,7 +10,7 @@ inputs:
   - name: vending-kata
 
 run:
-  path: "vending-kata/mvn"
+  path: "vending-kata/mvnw"
   args: ["test","package"]
 
 params:
