@@ -11,7 +11,7 @@ inputs:
 
 run:
   path: "vending-kata/mvnw"
-  args: ["-f", "source-code/pom.xml", "package"]
+  args: ["package"]
 
 params:
   MAVEN_BASEDIR: vending-kata
